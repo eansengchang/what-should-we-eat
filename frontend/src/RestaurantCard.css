@@ -1,0 +1,84 @@
+.restaurant-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  background-color: #fff;
+}
+
+.restaurant-card h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.restaurant-card .address {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.restaurant-card .details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 0.9em;
+}
+
+.restaurant-card .rating {
+  font-weight: bold;
+}
+
+.restaurant-card .status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+}
+
+.restaurant-card .status.open {
+  background-color: #28a745; /* green */
+}
+
+.restaurant-card .status.closed {
+  background-color: #dc3545; /* red */
+}
+
+.restaurant-card .links {
+  margin: 10px 0;
+}
+
+.restaurant-card .links a {
+  margin-right: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.restaurant-card .links a:hover {
+  text-decoration: underline;
+}
+
+.restaurant-card .reviews {
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.restaurant-card .reviews h3 {
+  margin-top: 0;
+  font-size: 1.1em;
+}
+
+.restaurant-card .review p {
+  margin: 5px 0;
+  font-style: italic;
+}
+
+.restaurant-card .review .author {
+  text-align: right;
+  font-style: normal;
+  font-weight: bold;
+  color: #555;
+}
