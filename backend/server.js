@@ -9,7 +9,26 @@ require("dotenv").config();
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["X-Goog-Api-Key"] = process.env.GOOGLE_API_KEY;
 
-axios.defaults.headers.post["X-Goog-FieldMask"] = "*";
+// All the information we are getting from google API
+let fieldMask = [
+  "id",
+  "displayName",
+  "formattedAddress",
+  "rating",
+  "userRatingCount",
+  "photos",
+  "primaryType",
+  "types",
+  "currentOpeningHours",
+  "currentSecondaryOpeningHours",
+  "regularOpeningHours",
+  "websiteUri",
+  "googleMapsUri",
+];
+
+let fieldMaskHeader = fieldMask.map((f) => `places.${f}`).join(",");
+
+axios.defaults.headers.post["X-Goog-FieldMask"] = fieldMaskHeader;
 
 const PORT = process.env.PORT || 4000;
 const ALLOWED_ORIGIN = "*";
@@ -30,7 +49,7 @@ async function getAPI(latitude, longitude) {
     "https://places.googleapis.com/v1/places:searchNearby",
     {
       includedTypes: ["restaurant"],
-      maxResultCount: 5,
+      maxResultCount: 10,
       locationRestriction: {
         circle: {
           center: {
@@ -84,7 +103,6 @@ io.on("connect", (socket) => {
     // create a dictionary that maps restaurant ids to restaurants
     let restaurantDict = {};
 
-    console.log(response)
     if (response?.places) {
       response?.places.forEach((r) => {
         r.compatibility = 0;

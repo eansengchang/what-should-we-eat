@@ -1,4 +1,3 @@
-import React from "react";
 import "./RestaurantCard.css";
 import { socket } from "./socket";
 
@@ -10,7 +9,11 @@ const choices = [
   "strongly like",
 ];
 
-const RestaurantCard = ({ restaurant }) => {
+const RestaurantCard = ({
+  restaurant,
+  signalChoiceGiven,
+  giveChoiceAvailable,
+}) => {
   const {
     displayName,
     formattedAddress,
@@ -19,13 +22,14 @@ const RestaurantCard = ({ restaurant }) => {
     regularOpeningHours,
     websiteUri,
     googleMapsUri,
-    reviews,
     compatibility,
   } = restaurant;
 
   const openNow = regularOpeningHours?.openNow;
 
   function emitChoice(choice) {
+    signalChoiceGiven();
+
     socket.emit("restaurant-rated", {
       restaurantId: restaurant.id,
       choice,
@@ -56,24 +60,18 @@ const RestaurantCard = ({ restaurant }) => {
           </a>
         )}
       </div>
-      {reviews && reviews.length > 0 && (
-        <div className="reviews">
-          <h3>Reviews</h3>
-          <div className="review">
-            <p>"{reviews[0].text?.text}"</p>
-            <p className="author">
-              - {reviews[0].authorAttribution?.displayName}
-            </p>
-          </div>
-        </div>
-      )}
+
       <div>Current Compatibility: {compatibility}</div>
-      <div>Rate this restaurant:</div>
-      {choices.map((choice, index) => (
-        <button key={index} onClick={() => emitChoice(index)}>
-          {choice}
-        </button>
-      ))}
+      {giveChoiceAvailable && (
+        <>
+          <div>Rate this restaurant:</div>
+          {choices.map((choice, index) => (
+            <button key={index} onClick={() => emitChoice(index)}>
+              {choice}
+            </button>
+          ))}
+        </>
+      )}
     </div>
   );
 };
