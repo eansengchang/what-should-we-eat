@@ -1,9 +1,10 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+
 import { socket } from "./socket";
 
 import HeroPage from "./components/HeroPage";
+import RestaurantCard from "./RestaurantCard";
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
@@ -55,15 +56,12 @@ function App() {
     <>
       {roomCode ? (
         <>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              margin: "20px",
-            }}
-          >
+          {/* Moved inline styles to App.css for better maintainability */}
+          <div className="room-code-container">
             Room Code: {roomCode}
+            {/* Added a class for the button for potential styling */}
             <button
+              className="copy-button"
               onClick={() => navigator.clipboard.writeText(roomCode)}
               style={{ marginLeft: "10px" }}
             >

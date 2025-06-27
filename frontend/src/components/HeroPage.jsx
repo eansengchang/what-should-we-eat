@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import "./HeroPage.css";
-// import logoImage from "../assets/wtbh-logo.png";
-import { socket } from "../socket"; // Import the socket instance
+import "./HeroPage.css";
+import { socket } from "../socket";
 
 const HeroPage = () => {
   const [roomCode, setRoomCode] = React.useState("");
@@ -60,8 +59,12 @@ const HeroPage = () => {
 
   return (
     <div className="heroPage">
-      {/* <img src={logoImage} alt="Logo" className="logo"></img> */}
       <h1 className="heroTitle">What Should We Eat Today?</h1>
+
+      <p className="heroSubtitle">
+        Use this website to decide on restaurants together as a group!
+      </p>
+
       <div className="heroButtons">
         <button className="heroButton" onClick={handleCreateRoom}>
           Create Room

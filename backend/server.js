@@ -24,6 +24,7 @@ let fieldMask = [
   "regularOpeningHours",
   "websiteUri",
   "googleMapsUri",
+  "generativeSummary",
 ];
 
 let fieldMaskHeader = fieldMask.map((f) => `places.${f}`).join(",");
@@ -65,6 +66,10 @@ async function getAPI(latitude, longitude) {
 
   // return responseExample;
 }
+
+// getAPI(37.7937, -122.3965).then((res) => {
+//   console.log(res);
+// });
 
 const socketRooms = {}; //maps socketIDs to room names
 let getStateObjFromRooms = {}; //maps room names to state objects

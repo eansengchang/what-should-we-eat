@@ -1,0 +1,87 @@
+.heroPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #f0f2f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.heroSubtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: -1rem;
+  margin-bottom: 2.5rem;
+  max-width: 550px;
+  line-height: 1.6;
+}
+
+.heroButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.heroButton {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 220px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.heroButton:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.heroButton:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.roomInputField {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+}
+
+.roomInputField:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.errorMessage {
+  color: #d9534f;
+  margin-top: 1rem;
+  font-weight: bold;
+  min-height: 1.5em; /* Reserve space to prevent layout shift */
+}
+
+/* For the loading text */
+.heroPage > p {
+  margin-top: 1rem;
+  color: #555;
+  font-size: 1.1rem;
+}

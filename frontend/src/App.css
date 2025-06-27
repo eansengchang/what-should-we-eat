@@ -4,12 +4,14 @@
 
 .App-content {
   margin: 0;
-  padding: 0;
+  padding: 20px; /* Add some padding around the content */
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
+  align-items: flex-start; /* Align items to the top */
   justify-content: center;
+  gap: 20px; /* Space between the two columns */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .restaurants-list,
@@ -17,10 +19,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   list-style: none;
   padding: 0;
   margin: 0;
+  flex: 1; /* Allow lists to grow */
+  min-width: 300px; /* Ensure they don't get too narrow */
+  max-width: 1000px; /* Max width for readability */
+}
+
+.restaurants-list h2,
+.rankings-list h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+.room-code-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  font-size: 1.1em;
+  color: #555;
 }
 
 .App-logo {
@@ -57,3 +77,11 @@
     transform: rotate(360deg);
   }
 }
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .App-content {
+    flex-direction: column; /* Stack columns on smaller screens */
+    align-items: center; /* Center items when stacked */
+  }
+  }

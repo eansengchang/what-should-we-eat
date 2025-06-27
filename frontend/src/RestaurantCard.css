@@ -1,15 +1,31 @@
 .restaurant-card {
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 16px;
-  width: 80%;
-  max-width: 600px;
+  width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: left;
   background-color: #fff;
+  overflow: hidden; /* To clip the image corners */
+  margin-bottom: 20px;
+}
+
+.restaurant-card .restaurant-photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.restaurant-card .restaurant-card-content {
+  padding: 16px;
 }
 
 .restaurant-card h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.restaurant-card h3 {
   margin-top: 0;
   color: #333;
 }
@@ -25,6 +41,18 @@
   align-items: center;
   margin: 10px 0;
   font-size: 0.9em;
+}
+
+.restaurant-card .status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.restaurant-card .todays-hours {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 4px;
 }
 
 .restaurant-card .rating {
@@ -60,25 +88,46 @@
   text-decoration: underline;
 }
 
-.restaurant-card .reviews {
-  margin-top: 15px;
-  border-top: 1px solid #eee;
-  padding-top: 15px;
-}
-
-.restaurant-card .reviews h3 {
-  margin-top: 0;
-  font-size: 1.1em;
-}
-
-.restaurant-card .review p {
-  margin: 5px 0;
+.restaurant-card .primary-type {
   font-style: italic;
+  color: #666;
+  text-transform: capitalize; /* Capitalize first letter of each word */
+  margin-top: -10px; /* Adjust spacing */
+  margin-bottom: 10px;
 }
 
-.restaurant-card .review .author {
-  text-align: right;
-  font-style: normal;
-  font-weight: bold;
-  color: #555;
+.restaurant-card .types {
+  font-size: 0.85em;
+  color: #888;
+  margin-top: 5px;
+  text-transform: capitalize;
+}
+
+.restaurant-card .generative-summary {
+  font-size: 0.95em;
+  color: #444;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+.restaurant-card .rating-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.restaurant-card .rating-section button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease;
+}
+
+.restaurant-card .rating-section button:hover {
+  background-color: #0056b3;
 }
