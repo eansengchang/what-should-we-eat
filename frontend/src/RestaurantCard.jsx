@@ -54,11 +54,13 @@ const RestaurantCard = ({
 
   const todaysHours = getTodaysHours();
 
-  // Construct the photo URL. Note: This requires your Google API key to be available in the frontend environment.
-  const photoUrl =
-    photos?.[0]?.name && process.env.REACT_APP_GOOGLE_API_KEY
-      ? `https://places.googleapis.com/v1/${photos[0].name}/media?maxHeightPx=400&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
-      : null;
+  // The backend URL should be stored in an environment variable.
+  const backendUrl =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+
+  // Construct the photo URL to point to our backend proxy, keeping the API key secure.
+  const photoName = photos?.[0]?.name;
+  const photoUrl = photoName ? `${backendUrl}/api/photo/${photoName}` : null;
 
   function emitChoice(choice) {
     signalChoiceGiven();

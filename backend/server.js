@@ -174,6 +174,41 @@ app.get("/", async (req, res) => {
   res.send("Hello World!");
 });
 
+app.get(/\/api\/photo\/(.*)/, async (req, res) => {
+  const photoName = req.params[0];
+  // Make sure your GOOGLE_API_KEY is in your backend's .env file
+  const apiKey = process.env.GOOGLE_API_KEY;
+
+  if (!photoName) {
+    return res.status(400).send("Photo name is required.");
+  }
+
+  if (!apiKey) {
+    console.error("Google API key is not configured on the backend.");
+    return res.status(500).send("Server configuration error.");
+  }
+
+  const googlePhotoUrl = `https://places.googleapis.com/v1/${photoName}/media?maxHeightPx=400&key=${apiKey}`;
+
+  try {
+    // Make a request to Google's API and ask for the response as a stream
+    const response = await axios({
+      method: "get",
+      url: googlePhotoUrl,
+      responseType: "stream",
+    });
+
+    // Set the content type from Google's response
+    res.setHeader("Content-Type", response.headers["content-type"]);
+
+    // Pipe the image stream from Google directly to the client
+    response.data.pipe(res);
+  } catch (error) {
+    console.error("Error fetching photo from Google:", error.message);
+    res.status(error.response?.status || 500).send("Failed to fetch photo.");
+  }
+});
+
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
