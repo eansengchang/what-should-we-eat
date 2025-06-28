@@ -11,6 +11,8 @@ function App() {
   const [rankings, setRankings] = useState([]);
   const [roomCode, setRoomCode] = useState("");
 
+  const [seeGroupRankings, setSeeGroupRankings] = useState(false);
+
   const [choicesGiven, setChoicesGiven] = useState({});
 
   useEffect(() => {
@@ -71,50 +73,60 @@ function App() {
           <div className="App">
             <main className="App-main">
               <div className="App-content">
-                <div className="restaurants-list">
-                  <h2>Unranked Restaurants</h2>
-                  {restaurants.length > 0 ? (
-                    restaurants.map((restaurant) =>
-                      // Don't show the card if user has already given their choice
-                      choicesGiven[restaurant.id] ? null : (
-                        <RestaurantCard
-                          key={restaurant.id}
-                          restaurant={restaurant}
-                          signalChoiceGiven={() => {
-                            setChoicesGiven((prevChoices) => ({
-                              ...prevChoices,
-                              [restaurant.id]: true,
-                            }));
-                          }}
-                          giveChoiceAvailable={true}
-                        />
-                      )
-                    )
-                  ) : (
-                    <p>No restaurants found nearby.</p>
-                  )}
-                </div>
-                {/* Ranking list on the side for user to see current rankings */}
-                <div className="rankings-list">
-                  <h2>Current Rankings</h2>
-                  {rankings.length > 0 ? (
-                    rankings.map((restaurant) => (
-                      <RestaurantCard
-                        key={restaurant.id}
-                        restaurant={restaurant}
-                        signalChoiceGiven={() => {
-                          setChoicesGiven((prevChoices) => ({
-                            ...prevChoices,
-                            [restaurant.id]: true,
-                          }));
-                        }}
-                        giveChoiceAvailable={false}
-                      />
-                    ))
-                  ) : (
-                    <p>No restaurants found nearby.</p>
-                  )}
-                </div>
+                <button onClick={() => setSeeGroupRankings(!seeGroupRankings)}>
+                  {seeGroupRankings ? "Go Back" : "Show Group Rankings"}
+                </button>
+                {seeGroupRankings ? (
+                  <>
+                    {/* Ranking list on the side for user to see current rankings */}
+                    <div className="rankings-list">
+                      <h2>Current Rankings</h2>
+                      {rankings.length > 0 ? (
+                        rankings.map((restaurant) => (
+                          <RestaurantCard
+                            key={restaurant.id}
+                            restaurant={restaurant}
+                            signalChoiceGiven={() => {
+                              setChoicesGiven((prevChoices) => ({
+                                ...prevChoices,
+                                [restaurant.id]: true,
+                              }));
+                            }}
+                            giveChoiceAvailable={false}
+                          />
+                        ))
+                      ) : (
+                        <p>No restaurants found nearby.</p>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="restaurants-list">
+                      <h2>Unranked Restaurants</h2>
+                      {restaurants.length > 0 ? (
+                        restaurants.map((restaurant) =>
+                          // Don't show the card if user has already given their choice
+                          choicesGiven[restaurant.id] ? null : (
+                            <RestaurantCard
+                              key={restaurant.id}
+                              restaurant={restaurant}
+                              signalChoiceGiven={() => {
+                                setChoicesGiven((prevChoices) => ({
+                                  ...prevChoices,
+                                  [restaurant.id]: true,
+                                }));
+                              }}
+                              giveChoiceAvailable={true}
+                            />
+                          )
+                        )
+                      ) : (
+                        <p>No restaurants found nearby.</p>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
             </main>
           </div>

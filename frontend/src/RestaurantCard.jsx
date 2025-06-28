@@ -26,7 +26,7 @@ const RestaurantCard = ({
     photos,
     primaryType,
     types,
-    generativeSummary, 
+    generativeSummary,
   } = restaurant;
 
   const openNow = currentOpeningHours?.openNow;
@@ -80,59 +80,68 @@ const RestaurantCard = ({
           className="restaurant-photo"
         />
       )}
-      <div className="restaurant-card-content">
-        <h2>{displayName?.text}</h2>
-        {primaryType && (
+      <div className="restaurant-card-content-wrapper">
+        <div className="restaurant-card-content">
+          <div>
+            <h2>{displayName?.text}</h2>
+            {types && types.length > 0 && (
+              <p className="types">
+                Categories:{" "}
+                {types.map((type) => type.replace(/_/g, " ")).join(", ")}
+              </p>
+            )}
+          </div>
+          {/* {primaryType && (
           <p className="primary-type">{primaryType.replace(/_/g, " ")}</p>
-        )}
-        <p className="address">{formattedAddress}</p>
-        <div className="details">
-          <span className="rating">
-            ⭐ {rating} ({userRatingCount} reviews)
-          </span>
-          <div className="status-container">
-            <span className={`status ${openNow ? "open" : "closed"}`}>
-              {openNow ? "Open Now" : "Closed"}
+        )} */}
+          <div className="links">
+            <p className="address">{formattedAddress}</p>
+            {websiteUri && (
+              <a href={websiteUri} target="_blank" rel="noopener noreferrer">
+                Website
+              </a>
+            )}
+            {googleMapsUri && (
+              <a href={googleMapsUri} target="_blank" rel="noopener noreferrer">
+                Google Maps
+              </a>
+            )}
+          </div>
+          <div className="details">
+            <span className="rating">
+              ⭐ {rating} ({userRatingCount} reviews)
             </span>
-            {todaysHours && <span className="todays-hours">{todaysHours}</span>}
+            <div className="status-container">
+              <span className={`status ${openNow ? "open" : "closed"}`}>
+                {openNow ? "Open Now" : "Closed"}
+              </span>
+              {todaysHours && (
+                <span className="todays-hours">{todaysHours}</span>
+              )}
+            </div>
           </div>
-        </div>
-        {types && types.length > 0 && (
-          <p className="types">
-            Categories:{" "}
-            {types.map((type) => type.replace(/_/g, " ")).join(", ")}
-          </p>
-        )}
-        <div className="links">
-          {websiteUri && (
-            <a href={websiteUri} target="_blank" rel="noopener noreferrer">
-              Website
-            </a>
-          )}
-          {googleMapsUri && (
-            <a href={googleMapsUri} target="_blank" rel="noopener noreferrer">
-              Google Maps
-            </a>
-          )}
-        </div>
-        {generativeSummary?.text && (
-          <p className="generative-summary">{generativeSummary.text}</p>
-        )}
 
-        <div className="rating-section">
-          <div>Current Compatibility: {compatibility}</div>
-        </div>
-        {giveChoiceAvailable && (
-          <div className="rating-section">
-            <h3>Rate this restaurant:</h3>
-            {choices.map((choice, index) => (
-              <button key={index} onClick={() => emitChoice(index)}>
-                {choice}
-              </button>
-            ))}
+          {generativeSummary?.text && (
+            <p className="generative-summary">{generativeSummary.text}</p>
+          )}
+
+          <div>
+            <div>Current Compatibility: {compatibility}</div>
           </div>
-        )}
-      </div> {/* End of restaurant-card-content */}
+          {giveChoiceAvailable && (
+            <div className="rating-section">
+              <h3>Rate this restaurant:</h3>
+              <div className="rating-choices">
+                {choices.map((choice, index) => (
+                  <button key={index} onClick={() => emitChoice(index)}>
+                    {choice}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>{" "}
+      </div>
     </div>
   );
 };

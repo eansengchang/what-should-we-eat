@@ -49,7 +49,7 @@ async function getAPI(latitude, longitude) {
   const res = await axios.post(
     "https://places.googleapis.com/v1/places:searchNearby",
     {
-      includedTypes: ["restaurant"],
+      includedPrimaryTypes: ["restaurant", "cafe"],
       maxResultCount: 10,
       locationRestriction: {
         circle: {
@@ -174,6 +174,8 @@ app.get("/", async (req, res) => {
   res.send("Hello World!");
 });
 
+let counter = 0;
+
 app.get(/\/api\/photo\/(.*)/, async (req, res) => {
   const photoName = req.params[0];
   // Make sure your GOOGLE_API_KEY is in your backend's .env file
@@ -188,10 +190,13 @@ app.get(/\/api\/photo\/(.*)/, async (req, res) => {
     return res.status(500).send("Server configuration error.");
   }
 
-  const googlePhotoUrl = `https://places.googleapis.com/v1/${photoName}/media?maxHeightPx=400&key=${apiKey}`;
+  const googlePhotoUrl = `https://places.googleapis.com/v1/${photoName}/media?maxHeightPx=1000&key=${apiKey}`;
 
   try {
     // Make a request to Google's API and ask for the response as a stream
+    counter++;
+    console.log("quering google images api: ", counter);
+
     const response = await axios({
       method: "get",
       url: googlePhotoUrl,
